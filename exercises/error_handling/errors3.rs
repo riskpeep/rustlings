@@ -4,15 +4,16 @@
 // Why not? What should we do to fix it?
 // Execute `rustlings hint errors3` for hints!
 
-// I AM NOT DONE
-
 use std::num::ParseIntError;
 
-fn main() {
+fn main() -> Result<(), ParseIntError> {
     let mut tokens = 100;
     let pretend_user_input = "8";
 
     let cost = total_cost(pretend_user_input)?;
+    // ? fails unless it is used on a function whose return type is compatible with the 
+    // type it is used on. (i.e. return a Result if used on a Result, return an Option if 
+    // used on an Option, etc.)  Here we modified the main function to return a Result.
 
     if cost > tokens {
         println!("You can't afford that many!");
@@ -20,6 +21,8 @@ fn main() {
         tokens -= cost;
         println!("You now have {} tokens.", tokens);
     }
+
+    Ok(())
 }
 
 pub fn total_cost(item_quantity: &str) -> Result<i32, ParseIntError> {
